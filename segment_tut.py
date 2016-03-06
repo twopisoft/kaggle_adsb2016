@@ -97,10 +97,12 @@ def auto_segment_all_datasets(segment_fn=None, prefix="", ns=None, basepath=None
     if segment_fn is None:
         segment_fn = segment_dataset
 
+    '''
     path = "{}output".format(prefix)
     if os.path.exists(path):
         shutil.rmtree(path)
     os.mkdir(path)
+    '''
 
     comp_file = "{}completed.json".format(prefix)
     comp_json = None

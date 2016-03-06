@@ -86,8 +86,7 @@ def snake_segment_dataset(dataset):
     edv = max(area_totals)
     esv = min(area_totals)
     ef = (edv - esv) / edv
-    log("edv=%f, esv=%f" % (edv,esv),2)
-    log("Done, ef is %f" % ef, 2)
+    log("edv=%f, esv=%f, ef=%f" % (edv,esv,ef),2)
     
     dataset.edv = edv
     dataset.esv = esv
@@ -190,9 +189,14 @@ def update_snake(img, sx, sy):
 
 def main():
 
-    #random.seed(42)
-    auto_segment_all_datasets(segment_fn=snake_segment_dataset, prefix="snake_", ns=sys.argv[2],
-                              basepath=sys.argv[1], validate=False)
+    random.seed(42)
+
+    settings_f = open("settings.json","r")
+    settings = json.load(settings_f)
+    settings_f.close()
+
+    auto_segment_all_datasets(segment_fn=snake_segment_dataset, prefix="snake_", ns=settings["ns"],
+                              basepath=settings["basepath"], validate=settings["validate"], train=settings["train"])
 
 if __name__ == "__main__":
     main()
